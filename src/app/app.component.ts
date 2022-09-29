@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'clientes-app';
+  title = 'Welcome to Angular';
+  curso:string='Bootcam FullStack 2022';
+  alumno:string = 'Héctor Acosta';
 }
