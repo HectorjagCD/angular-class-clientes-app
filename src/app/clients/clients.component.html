@@ -22,6 +22,9 @@
       <td>{{client.surname}}</td>
       <td>{{client.email}}</td>
       <td>{{client.createAt}}</td>
+      <td>
+        <button class="btn btn-primary" type="button" [routerLink]="['/clients/form', client.id]"> Editar</button>
+      </td>
     </tr>
 
   </tbody>

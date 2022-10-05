@@ -1,30 +1,51 @@
 <div class="card bg-dark text-white">
-  <div class="card-header">{{ title }}</div>
+  <div class="card-header"> {{ title }} </div>
   <div class="card-body">
-    <form (ngSubmit)="create()">
-      <div class="form-group row">
-        <label for="name" class="col-form-label col-sm-2">Nombre</label>
-        <div class="col-sm-6">
-          <input type="text" [(ngModel)]="client.name" name="name" class="form-control">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="surname" class="col-form-label col-sm-2">Apellido</label>
-        <div class="col-sm-6">
-          <input type="text" [(ngModel)]="client.surname" class="form-control" name="surname" >
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="email" class="col-form-label col-sm-2">Email</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="client.email" name="email">
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-sm-6">
-          <button class="btn btn-primary" role="button">Crear</button>
-        </div>
-      </div>
-    </form>
+      <form >
+          <div class="form-group row">
+              <label for="name" class="col-form-label col-sm-2">Nombre</label>
+              <div class="col-sm-6">
+                  <input type="text" [(ngModel)]="client.name" name="name" class="form-control" required minlength="4" #name="ngModel">
+                  <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+                      <div *ngIf="name.errors.required"> El nombre es obligatorio</div>
+                      <div *ngIf="name.errors.minlength"> El nombre tiene que tener al menos 4 caracteres </div>
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="form-group row">
+              <label for="surname" class="col-form-label col-sm-2">Apellido</label>
+              <div class="col-sm-6">
+                  <input type="text" class="form-control" [(ngModel)]="client.surname" name="surname" required #surname="ngModel">
+                  <div class="alert alert-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+                      <div *ngIf="surname.errors.required"> Apellido obligatorio</div>
+                  </div>
+              </div>
+
+          </div>
+          <div class="form-group row">
+              <label for="email" class="col-form-label col-sm-2">Email</label>
+              <div class="col-sm-6">
+                  <input type="text" class="form-control" [(ngModel)]="client.email" name="email" required #email="ngModel" email>
+                  <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                      <div *ngIf="email.errors.required"> Email obligatorio </div>
+                      <div *ngIf="email.errors.email"> Formato incorrecto </div>
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="form-group row">
+              <div class="col-sm-6">
+                  <button class="btn btn-primary" (click)="create()" role="button" *ngIf="!client.id else elseblock">Crear</button>
+                  <ng-template #elseblock>
+                    <button (click)="updateClient()" role="button" class="btn btn-primary">Modificar</button>
+                  </ng-template>
+              </div>
+          </div>
+
+      </form>
   </div>
+
 </div>
